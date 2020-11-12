@@ -15,9 +15,6 @@ public class ChessApp {
 
         Chess game = new Chess(nom1, nom2);
         game.initGame();
-
-        Board taulell = new Board();
-        taulell.printBoard();
         
         keyboard.close();
     }
