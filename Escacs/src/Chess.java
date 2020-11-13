@@ -39,7 +39,7 @@ public class Chess {
     public void initGame () {
         
         Board taulell = new Board();
-
+        
         System.out.println("Hello " + this.player1);
         System.out.println("Hello " + this.player2);
         System.out.println("The game starts!!");
