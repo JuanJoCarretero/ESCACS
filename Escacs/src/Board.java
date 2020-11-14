@@ -77,7 +77,11 @@ public class Board {
         do {
             System.out.println("Where would you like to move piece " + this.pieceToMove + " ? Position should be written like: 4B");
             this.movement = this.keyboard.next();
-        } while (!(this.movement.matches(pattern)));
+
+            row = getRow(this.pieceToMove.charAt(0)) - 1;
+            column = getColumn(this.pieceToMove);
+
+        } while (!(this.movement.matches(pattern)) || (this.taulell[row][column].equals(" . ")));
     }
 
     public static int getRow(char number) {
