@@ -2,46 +2,70 @@ import java.util.Scanner;
 
 public class Board {
     
+    //DEFINITION OF VARIABLES
     private Scanner keyboard = new Scanner(System.in);
     private String pieceToMove;
     private String movement;
-    private String[][] taulell = {
-        {" t "," c "," a "," q "," k "," a "," c "," t "},
-        {" p "," p "," p "," p "," p "," p "," p "," p "},
-        {" . "," . "," . "," . "," . "," . "," . "," . "},
-        {" . "," . "," . "," . "," . "," . "," . "," . "},
-        {" . "," . "," . "," . "," . "," . "," . "," . "},
-        {" . "," . "," . "," . "," . "," . "," . "," . "},
-        {" P "," P "," P "," P "," P "," P "," P "," P "},
-        {" T "," C "," A "," K "," Q "," A "," C "," T "}
+    private String[][] board = {
+        {"t","c","a","q","k","a","c","t"},
+        {"p","p","p","p","p","p","p","p"},
+        {"·","·","·","·","·","·","·","·"},
+        {"·","·","·","·","·","·","·","·"},
+        {"·","·","·","·","·","·","·","·"},
+        {"·","·","·","·","·","·","·","·"},
+        {"P","P","P","P","P","P","P","P"},
+        {"T","C","A","K","Q","A","C","T"}
     };
     
-    public String[][] getTaulell() {
-        return taulell;
+    /**
+     * 
+     * @return
+     */
+    public String[][] getBoard() {
+        return board;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String getMovement() {
         return movement;
     }
 
+    /**
+     * 
+     * @param movement
+     */
     public void setMovement(String movement) {
         this.movement = movement;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getPieceToMove() {
         return pieceToMove;
     }
-
+    
+    /**
+     * 
+     * @param pieceToMove
+     */
     public void setPieceToMove(String pieceToMove) {
         this.pieceToMove = pieceToMove;
     }
 
+    /**
+     * METHOD FOR PRINT THE BOARD
+     */
     public void printBoard () {
         
         System.out.println("   A " + " B " + " C " + " D " + " E " + " F " + " G " + " H ");
         System.out.println(" -------------------------");
         
-        for (int r = 0; r < this.taulell.length; r++) {
+        for (int r = 0; r < this.board.length; r++) {
 
             if (r < 9) {
                 System.out.print((r+1) + "|");
@@ -51,45 +75,94 @@ public class Board {
                 System.out.print((r+1) + "|");
             }
 
-            for (int c = 0; c < this.taulell[r].length; c++) {
-                System.out.print(this.taulell[r][c]);
+            for (int c = 0; c < this.board[r].length; c++) {
+                System.out.print(this.board[r][c]);
             }
 
             System.out.println();
         }
     }
     
-    public void askPlay() {
+    /**
+     * 
+     * @param turn
+     */
+    public void askPlay(String turn) {
 
-        String pattern = "^[1-8]{1}[A-H]{1}$";
-        int row;
-        int column;
+        String movementPattern = "^[1-8]{1}[A-H]{1}$";
+        String upperCasePattern = "[A-Z]";
+        String lowerCasePattern = "[a-z]";
+        boolean validPiece = false;
+        boolean validDestination = false;
+        boolean cancel = false;
+        int X1 = 0;
+        int Y1 = 0;
+        int X2 = 0;
+        int Y2 = 0;
 
         do {
-            System.out.println("Which piece would you like to move? Position should be written like: 4B");
-            this.pieceToMove = this.keyboard.next();
+            
+            do {
+                System.out.println("\n" + "If you want to cancel the movement at any time, just type \"C\"");
+                System.out.println("Which piece would you like to move? Position should be written like: 4B");
+                this.pieceToMove = this.keyboard.next();
 
-            row = getRow(this.pieceToMove.charAt(0)) - 1;
-            column = getColumn(this.pieceToMove);
+                cancel = (this.pieceToMove.equals("C")) ? true : false;
 
-        } while (!(this.pieceToMove.matches(pattern)) || (this.taulell[row][column].equals(" . ")));
-        
-        do {
-            System.out.println("Where would you like to move piece " + this.pieceToMove + " ? Position should be written like: 4B");
-            this.movement = this.keyboard.next();
+                if (!cancel) {
 
-            row = getRow(this.pieceToMove.charAt(0)) - 1;
-            column = getColumn(this.pieceToMove);
+                    X1 = getRow(this.pieceToMove.charAt(0)) - 1;
+                    Y1 = getColumn(this.pieceToMove);
 
-        } while (!(this.movement.matches(pattern)) || (this.taulell[row][column].equals(" . ")));
+                    if (turn.equals("white")) {
+                        validPiece = (this.board[X1][Y1].matches(upperCasePattern)) ? true : false;
+                    } else {
+                        validPiece = (this.board[X1][Y1].matches(lowerCasePattern)) ? true : false;
+                    }
+                }
+
+            } while (!(this.pieceToMove.matches(movementPattern)) || !validPiece);
+            
+            do {
+                System.out.println("Where would you like to move piece " + this.pieceToMove + " ? Position should be written like: 4B");
+                this.movement = this.keyboard.next();
+
+                cancel = (this.movement.equals("C")) ? true : false;
+
+                if (!cancel) {
+
+                    X2 = getRow(this.movement.charAt(0)) - 1;
+                    Y2 = getColumn(this.movement);
+
+                    if (turn.equals("white")) {
+                        validDestination = (this.board[X2][Y2].matches(lowerCasePattern) || this.board[X2][Y2].equals("·")) ? true : false;
+                    } else {
+                        validDestination = (this.board[X2][Y2].matches(upperCasePattern) || this.board[X2][Y2].equals("·")) ? true : false;
+                    }
+                }
+
+            } while (!(this.movement.matches(movementPattern)) && !cancel || !validDestination && !cancel);
+
+        } while (cancel);
+
     }
 
+    /**
+     * 
+     * @param number
+     * @return
+     */
     public static int getRow(char number) {
         String fila = Character.toString(number);
 
         return Integer.valueOf(fila);
     }
 
+    /**
+     * 
+     * @param boardCoordinates
+     * @return
+     */
     public static int getColumn(String boardCoordinates) {
     
         int column = 0;

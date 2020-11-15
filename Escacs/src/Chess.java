@@ -8,6 +8,11 @@ public class Chess {
     
     private boolean victory;
 
+    /**
+     * Constructor
+     * @param player1
+     * @param player2
+     */
     public Chess (String player1, String player2) {
         setPlayer1(player1);
         setPlayer2(player2);
@@ -36,29 +41,34 @@ public class Chess {
         return this.turn;
     }
 
+    /**
+     * Game starts
+     * Checks which turn is it
+     * Asks player his movement
+     */
     public void initGame () {
         
-        Board taulell = new Board();
+        Board board = new Board();
         
         System.out.println("Hello " + this.player1);
         System.out.println("Hello " + this.player2);
-        System.out.println("The game starts!!");
+        System.out.println("\nThe game starts!!");
         System.out.println();
-        taulell.printBoard();
+        board.printBoard();
         System.out.println();
-        System.out.println("Player with white pieces starts!");
+        System.out.println(this.player1 + " starts!\nReminder: you play with Upper Case pieces!");
         System.out.println();
 
         do {
             if (this.turnNumber%2 == 0 && this.turnNumber != 1) {
-                System.out.println("Player with black pieces plays!");
+                System.out.println("Is " + this.player2 + "'s turn!\nReminder: you play with Lower Case pieces!");
                 this.turn = "black";
             } else if (this.turnNumber%2 != 0 && this.turnNumber != 1) {
-                System.out.println("Player with white pieces plays!");
+                System.out.println("Is " + this.player1 + "'s turn!\nReminder: you play with Upper Case pieces!");
                 this.turn = "white";
             }
 
-            taulell.askPlay();
+            board.askPlay(this.turn);
 
 
             this.turnNumber++;
