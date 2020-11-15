@@ -70,9 +70,10 @@ public class Chess {
 
             board.askPlay(this.turn);
 
+            board.printBoard();
 
             this.turnNumber++;
-        } while (victory);
+        } while (!victory);
     }
 
     private boolean checkVictory() {

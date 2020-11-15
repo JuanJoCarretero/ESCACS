@@ -89,12 +89,14 @@ public class Board {
      */
     public void askPlay(String turn) {
 
+        String pieceBeingMoved;
         String movementPattern = "^[1-8]{1}[A-H]{1}$";
         String upperCasePattern = "[A-Z]";
         String lowerCasePattern = "[a-z]";
         boolean validPiece = false;
         boolean validDestination = false;
         boolean cancel = false;
+        boolean validMovement = false;
         int X1 = 0;
         int Y1 = 0;
         int X2 = 0;
@@ -103,48 +105,129 @@ public class Board {
         do {
             
             do {
-                System.out.println("\n" + "If you want to cancel the movement at any time, just type \"C\"");
-                System.out.println("Which piece would you like to move? Position should be written like: 4B");
-                this.pieceToMove = this.keyboard.next();
+                
+                do {
+                    System.out.println("\n" + "If you want to cancel the movement at any time, just type \"C\"");
+                    System.out.println("Which piece would you like to move? Position should be written like: 4B");
+                    this.pieceToMove = this.keyboard.next();
 
-                cancel = (this.pieceToMove.equals("C")) ? true : false;
+                    cancel = (this.pieceToMove.equals("C")) ? true : false;
 
-                if (!cancel) {
+                    if (!cancel) {
 
-                    X1 = getRow(this.pieceToMove.charAt(0)) - 1;
-                    Y1 = getColumn(this.pieceToMove);
+                        X1 = getRow(this.pieceToMove.charAt(0)) - 1;
+                        Y1 = getColumn(this.pieceToMove);
+
+                        if (turn.equals("white")) {
+                            validPiece = (this.board[X1][Y1].matches(upperCasePattern)) ? true : false;
+                        } else {
+                            validPiece = (this.board[X1][Y1].matches(lowerCasePattern)) ? true : false;
+                        }
+                    }
+
+                } while (!(this.pieceToMove.matches(movementPattern)) || !validPiece);
+                
+                do {
+                    System.out.println("Where would you like to move piece " + this.pieceToMove + " ? Position should be written like: 4B");
+                    this.movement = this.keyboard.next();
+
+                    cancel = (this.movement.equals("C")) ? true : false;
+
+                    if (!cancel) {
+
+                        X2 = getRow(this.movement.charAt(0)) - 1;
+                        Y2 = getColumn(this.movement);
+
+                        if (turn.equals("white")) {
+                            validDestination = (this.board[X2][Y2].matches(lowerCasePattern) || this.board[X2][Y2].equals("·")) ? true : false;
+                        } else {
+                            validDestination = (this.board[X2][Y2].matches(upperCasePattern) || this.board[X2][Y2].equals("·")) ? true : false;
+                        }
+                    }
+
+                } while (!(this.movement.matches(movementPattern)) && !cancel || !validDestination && !cancel);
+
+            } while (cancel);
+
+            pieceBeingMoved = this.board[X1][Y1];
+
+            switch (pieceBeingMoved.toUpperCase()) {
+
+                case "P":
 
                     if (turn.equals("white")) {
-                        validPiece = (this.board[X1][Y1].matches(upperCasePattern)) ? true : false;
+                        Pawn pawn = new Pawn(X1, Y1, X2, Y2, turn, board, lowerCasePattern);
+                        validMovement = pawn.isValidMove();
                     } else {
-                        validPiece = (this.board[X1][Y1].matches(lowerCasePattern)) ? true : false;
+                        Pawn pawn = new Pawn(X1, Y1, X2, Y2, turn, board, upperCasePattern);
+                        validMovement = pawn.isValidMove();
                     }
-                }
 
-            } while (!(this.pieceToMove.matches(movementPattern)) || !validPiece);
-            
-            do {
-                System.out.println("Where would you like to move piece " + this.pieceToMove + " ? Position should be written like: 4B");
-                this.movement = this.keyboard.next();
+                    break;
 
-                cancel = (this.movement.equals("C")) ? true : false;
-
-                if (!cancel) {
-
-                    X2 = getRow(this.movement.charAt(0)) - 1;
-                    Y2 = getColumn(this.movement);
+                case "T":
 
                     if (turn.equals("white")) {
-                        validDestination = (this.board[X2][Y2].matches(lowerCasePattern) || this.board[X2][Y2].equals("·")) ? true : false;
+
                     } else {
-                        validDestination = (this.board[X2][Y2].matches(upperCasePattern) || this.board[X2][Y2].equals("·")) ? true : false;
+
                     }
-                }
 
-            } while (!(this.movement.matches(movementPattern)) && !cancel || !validDestination && !cancel);
+                    break;
 
-        } while (cancel);
+                case "C":
 
+                    if (turn.equals("white")) {
+
+                    } else {
+
+                    }
+
+                    break;
+
+                case "A":
+
+                    if (turn.equals("white")) {
+
+                    } else {
+
+                    }
+
+                    break;
+
+                case "K":
+
+                    if (turn.equals("white")) {
+
+                    } else {
+
+                    }
+
+                    break;
+
+                case "Q":
+
+                    if (turn.equals("white")) {
+
+                    } else {
+
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }
+
+        } while (!validMovement);
+
+        movePiece(X1, Y1, X2, Y2);
+
+    }
+
+    private void movePiece(int X1, int Y1, int X2, int Y2) {
+        this.board[X2][Y2] = this.board[X1][Y1];
+        this.board[X1][Y1] = "·";
     }
 
     /**
