@@ -16,9 +16,9 @@ public class Pawn extends Piece {
                     valid = true;
                 } else if ((this.Y1 != this.Y2 && (this.X1 - this.X2) == 1)) {
 
-                    if ((this.Y1 + 1) == this.Y2 && board[this.X2][this.Y2].matches(this.pattern)) {
+                    if ((this.Y1 + 1) == this.Y2 && this.board[this.X2][this.Y2].matches(this.pattern)) {
                         valid = true;
-                    } else if ((this.Y1 - 1) == this.Y2 && board[this.X2][this.Y2].matches(this.pattern)) {
+                    } else if ((this.Y1 - 1) == this.Y2 && this.board[this.X2][this.Y2].matches(this.pattern)) {
                         valid = true;
                     }
                 }

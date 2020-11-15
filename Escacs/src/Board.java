@@ -168,9 +168,11 @@ public class Board {
                 case "T":
 
                     if (turn.equals("white")) {
-
+                        Rook rook = new Rook(X1, Y1, X2, Y2, turn, board, lowerCasePattern);
+                        validMovement = rook.isValidMove();
                     } else {
-
+                        Rook rook = new Rook(X1, Y1, X2, Y2, turn, board, upperCasePattern);
+                        validMovement = rook.isValidMove();
                     }
 
                     break;
