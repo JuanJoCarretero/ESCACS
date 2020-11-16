@@ -201,11 +201,13 @@ public class Board {
 
                 case "K":
 
-                    if (turn.equals("white")) {
-
-                    } else {
-
-                    }
+                if (turn.equals("white")) {
+                    King king = new King(X1, Y1, X2, Y2, turn, board, lowerCasePattern);
+                    validMovement = king.isValidMove();
+                } else {
+                    King king = new King(X1, Y1, X2, Y2, turn, board, upperCasePattern);
+                    validMovement = king.isValidMove();
+                }
 
                     break;
 
