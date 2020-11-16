@@ -7,6 +7,16 @@ public abstract class Piece {
     protected String[][] board = new String[8][8];
     protected String pattern;
 
+    /**
+     * Constructor
+     * @param X1 x coordinate of piece to move
+     * @param Y1 y coordinate of piece to move
+     * @param X2 x coordinate of destination
+     * @param Y2 y coordinate of destination
+     * @param turn
+     * @param board
+     * @param pattern
+     */
     public Piece (int X1, int Y1, int X2, int Y2, String turn, String[][] board, String pattern) {
         this.X1 = X1;
         this.X2 = X2;
@@ -18,5 +28,4 @@ public abstract class Piece {
     }
 
     public abstract boolean isValidMove();
-    
 }

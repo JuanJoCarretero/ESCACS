@@ -39,33 +39,40 @@ public class Chess {
         System.out.println();
         System.out.println("===============================================");
         System.out.println();
-        board.printBoard();
-        System.out.println();
-        System.out.println(this.player1 + " starts!\nReminder: you play with Upper Case pieces!");
-        System.out.println();
+
+        System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * ");
+        System.out.println("\nIs " + this.player1 + "'s turn!\nReminder: you play with Lower Case pieces!");
+        System.out.println("\n* * * * * * * * * * * * * * * * * * * * * * * * * *");
 
         while (!this.victory) {
 
+            // Even turn number means black pieces turn
             if (this.turnNumber%2 == 0 && this.turnNumber != 1) {
+
                 System.out.println();
                 System.out.println("===============================================");
                 System.out.println();
+                System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * ");
                 System.out.println("\nIs " + this.player2 + "'s turn!\nReminder: you play with Lower Case pieces!");
+                System.out.println("\n* * * * * * * * * * * * * * * * * * * * * * * * * *");
                 this.turn = "black";
+
+            // Odd turn number means white pieces turn
             } else if (this.turnNumber%2 != 0 && this.turnNumber != 1) {
+
                 System.out.println();
                 System.out.println("===============================================");
                 System.out.println();
-                System.out.println("\nIs " + this.player1 + "'s turn!\nReminder: you play with Upper Case pieces!");
+                System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * ");
+                System.out.println("\nIs " + this.player1 + "'s turn!\nReminder: you play with Lower Case pieces!");
+                System.out.println("\n* * * * * * * * * * * * * * * * * * * * * * * * * *");
                 this.turn = "white";
             }
 
             board.askPlay(this.turn);
             System.out.println();
             board.printBoard();
-
             this.turnNumber++;
-
             checkVictory(board);
         }
     }
@@ -83,7 +90,7 @@ public class Chess {
 
         for (int r = 0; r < winnerBoard.length; r++) {
             for (int c = 0; c < winnerBoard[r].length; c++) {
-                
+
                 if (winnerBoard[r][c].equals("K")) {
                     whiteKing = true;
                 }
@@ -98,15 +105,19 @@ public class Chess {
             this.victory = true;
 
             if (!blackKing) {
+
                 System.out.println();
                 System.out.println("===============================================");
                 System.out.println();
                 System.out.println(this.player1 + " with white pieces wins the match!!!");
+                System.out.println();
             } else if (!whiteKing) {
+
                 System.out.println();
                 System.out.println("===============================================");
                 System.out.println();
                 System.out.println(this.player2 + " with black pieces wins the match!!!");
+                System.out.println();
             }
         }
     }
