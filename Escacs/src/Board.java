@@ -180,9 +180,11 @@ public class Board {
                 case "C":
 
                     if (turn.equals("white")) {
-
+                        Knight knight = new Knight(X1, Y1, X2, Y2, turn, board, lowerCasePattern);
+                        validMovement = knight.isValidMove();
                     } else {
-
+                        Knight knight = new Knight(X1, Y1, X2, Y2, turn, board, upperCasePattern);
+                        validMovement = knight.isValidMove();
                     }
 
                     break;

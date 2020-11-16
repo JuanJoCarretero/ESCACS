@@ -8,6 +8,42 @@ public class Knight extends Piece {
     public boolean isValidMove() {
         boolean valid = false;
 
+        if ((this.Y1 + 1 == this.Y2) && (this.X1 - 2 == this.X2)) {
+            valid = true;
+        }
+        
+        if ((this.Y1 + 2 == this.Y2) && (this.X1 - 1 == this.X2)) {
+            valid = true;
+        }
+        
+        if ((this.Y1 + 1 == this.Y2) && (this.X1 + 1 == this.X2)) {
+            valid = true;
+        }
+        
+        if ((this.Y1 + 2 == this.Y2) && (this.X1 + 1 == this.X2)) {
+            valid = true;
+        }
+        
+        if ((this.Y1 + 1 == this.Y2) && (this.X1 + 2 == this.X2)) {
+            valid = true;
+        }
+        
+        if ((this.Y1 - 1 == this.Y2) && (this.X1 + 2 == this.X2)) {
+            valid = true;
+        }
+        
+        if ((this.Y1 - 2 == this.Y2) && (this.X1 + 1 == this.X2)) {
+            valid = true;
+        }
+        
+        if ((this.Y1 - 2 == this.Y2) && (this.X1 - 1 == this.X2)) {
+            valid = true;
+        }
+
+        if ((this.Y1 - 1 == this.Y2) && (this.X1 - 2 == this.X2)) {
+            valid = true;
+        }
+
         return valid;
     }
 }
