@@ -8,6 +8,8 @@ public class King extends Piece{
     public boolean isValidMove() {
         boolean valid = false;
 
+        
+
         return valid;
     }
 }

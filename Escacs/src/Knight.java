@@ -7,7 +7,7 @@ public class Knight extends Piece {
     @Override
     public boolean isValidMove() {
         boolean valid = false;
-        
+
         return valid;
     }
 }

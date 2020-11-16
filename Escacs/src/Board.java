@@ -76,7 +76,7 @@ public class Board {
             }
 
             for (int c = 0; c < this.board[r].length; c++) {
-                System.out.print(this.board[r][c]);
+                System.out.print(this.board[r][c] + " ");
             }
 
             System.out.println();
@@ -190,9 +190,11 @@ public class Board {
                 case "A":
 
                     if (turn.equals("white")) {
-
+                        Bishop bishop = new Bishop(X1, Y1, X2, Y2, turn, board, lowerCasePattern);
+                        validMovement = bishop.isValidMove();
                     } else {
-
+                        Bishop bishop = new Bishop(X1, Y1, X2, Y2, turn, board, upperCasePattern);
+                        validMovement = bishop.isValidMove();
                     }
 
                     break;
@@ -210,9 +212,11 @@ public class Board {
                 case "Q":
 
                     if (turn.equals("white")) {
-
+                        Queen queen = new Queen(X1, Y1, X2, Y2, turn, board, lowerCasePattern);
+                        validMovement = queen.isValidMove();
                     } else {
-
+                        Queen queen = new Queen(X1, Y1, X2, Y2, turn, board, upperCasePattern);
+                        validMovement = queen.isValidMove();
                     }
 
                     break;

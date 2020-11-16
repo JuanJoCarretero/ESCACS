@@ -8,6 +8,77 @@ public class Bishop extends Piece {
     public boolean isValidMove() {
         boolean valid = false;
 
+        if (this.X1 > this.X2 && this.Y1 > this.Y2 && (Math.abs(this.X2 - this.X1) == Math.abs(this.Y2 - this.Y1))) {
+
+            if ((this.X1 - this.X2 != 1) && (this.Y1 - this.Y2 != 1)) {
+
+                for (int i = 1; i < Math.abs(this.X2 - this.X1); i++) {
+                    
+                    if (this.board[this.X1-i][this.Y1-i].equals("·")) {
+                        continue;
+                    }
+                    return valid = false; 
+                }
+            }
+
+            if (this.board[this.X2][this.Y2].equals("·") || this.board[this.X2][this.Y2].matches(this.pattern)) {
+                valid = true;
+            }
+        }
+        
+        if (this.X1 > this.X2 && this.Y1 < this.Y2 && (Math.abs(this.X2 - this.X1) == Math.abs(this.Y2 - this.Y1))){
+
+            if ((this.X1 - this.X2 != 1) && (this.Y2 - this.Y1 != 1)) {
+
+                for (int i = 1; i < Math.abs(this.X2 - this.X1); i++) {
+                    
+                    if (this.board[this.X1-i][this.Y1+i].equals("·")) {
+                        continue;
+                    }
+                    return valid = false; 
+                }
+            }
+
+            if (this.board[this.X2][this.Y2].equals("·") || this.board[this.X2][this.Y2].matches(this.pattern)) {
+                valid = true;
+            }
+        }
+        
+        if (this.X1 < this.X2 && this.Y1 < this.Y2 && (Math.abs(this.X2 - this.X1) == Math.abs(this.Y2 - this.Y1))){
+
+            if ((this.X1 - this.X2 != 1) && (this.Y2 - this.Y1 != 1)) {
+
+                for (int i = 1; i < Math.abs(this.X2 - this.X1); i++) {
+                    
+                    if (this.board[this.X1+i][this.Y1+i].equals("·")) {
+                        continue;
+                    }
+                    return valid = false; 
+                }
+            }
+
+            if (this.board[this.X2][this.Y2].equals("·") || this.board[this.X2][this.Y2].matches(this.pattern)) {
+                valid = true;
+            }
+        }
+        
+        if (this.X1 < this.X2 && this.Y1 > this.Y2 && (Math.abs(this.X2 - this.X1) == Math.abs(this.Y2 - this.Y1))){
+
+            if ((this.X1 - this.X2 != 1) && (this.Y2 - this.Y1 != 1)) {
+
+                for (int i = 1; i < Math.abs(this.X2 - this.X1); i++) {
+                    
+                    if (this.board[this.X1+i][this.Y1-i].equals("·")) {
+                        continue;
+                    }
+                    return valid = false; 
+                }
+            }
+
+            if (this.board[this.X2][this.Y2].equals("·") || this.board[this.X2][this.Y2].matches(this.pattern)) {
+                valid = true;
+            }
+        }
         
         return valid;
     }
