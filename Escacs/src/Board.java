@@ -24,38 +24,6 @@ public class Board {
     public String[][] getBoard() {
         return board;
     }
-    
-    /**
-     * 
-     * @return
-     */
-    public String getMovement() {
-        return movement;
-    }
-
-    /**
-     * 
-     * @param movement
-     */
-    public void setMovement(String movement) {
-        this.movement = movement;
-    }
-
-    /**
-     * 
-     * @return
-     */
-    public String getPieceToMove() {
-        return pieceToMove;
-    }
-    
-    /**
-     * 
-     * @param pieceToMove
-     */
-    public void setPieceToMove(String pieceToMove) {
-        this.pieceToMove = pieceToMove;
-    }
 
     /**
      * METHOD FOR PRINT THE BOARD

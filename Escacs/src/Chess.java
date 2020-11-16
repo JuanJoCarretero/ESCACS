@@ -59,7 +59,7 @@ public class Chess {
         System.out.println(this.player1 + " starts!\nReminder: you play with Upper Case pieces!");
         System.out.println();
 
-        do {
+        while (!this.victory) {
             if (this.turnNumber%2 == 0 && this.turnNumber != 1) {
                 System.out.println("Is " + this.player2 + "'s turn!\nReminder: you play with Lower Case pieces!");
                 this.turn = "black";
@@ -73,12 +73,38 @@ public class Chess {
             board.printBoard();
 
             this.turnNumber++;
-        } while (!victory);
+
+            checkVictory(board);
+        }
     }
 
-    private boolean checkVictory() {
-        return this.victory;
+    private void checkVictory(Board board) {
+
+        String[][] winnerBoard = board.getBoard();
+        boolean whiteKing = false;
+        boolean blackKing = false;
+
+        for (int r = 0; r < winnerBoard.length; r++) {
+            for (int c = 0; c < winnerBoard[r].length; c++) {
+                
+                if (winnerBoard[r][c].equals("K")) {
+                    whiteKing = true;
+                }
+
+                if (winnerBoard[r][c].equals("k")) {
+                    blackKing = true;
+                }
+            }
+        }
+
+        if (!whiteKing || !blackKing) {
+            this.victory = true;
+
+            if (!blackKing) {
+                System.out.println(this.player1 + " with white pieces wins the match!!!");
+            } else if (!whiteKing) {
+                System.out.println(this.player2 + " with black pieces wins the match!!!");
+            }
+        }
     }
-
-
 }
