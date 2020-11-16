@@ -8,6 +8,7 @@ public class Queen extends Piece {
     public boolean isValidMove() {
         boolean valid = false;
         
+        // Moves in vertical direction (up or down)
         if (this.Y1 == this.Y2) {
             
             if (this.X1 > this.X2) {
@@ -46,6 +47,7 @@ public class Queen extends Piece {
             }
         }
 
+        // Moves in horizontal direction (left or right)
         if (this.X1 == this.X2) {
             
             if (this.Y1 > this.Y2) {
@@ -84,6 +86,7 @@ public class Queen extends Piece {
             }
         }
 
+        // Top left diagonal movement
         if (this.X1 > this.X2 && this.Y1 > this.Y2 && (Math.abs(this.X2 - this.X1) == Math.abs(this.Y2 - this.Y1))) {
 
             if ((this.X1 - this.X2 != 1) && (this.Y1 - this.Y2 != 1)) {
@@ -102,6 +105,7 @@ public class Queen extends Piece {
             }
         }
         
+        // Top right diagonal movement
         if (this.X1 > this.X2 && this.Y1 < this.Y2 && (Math.abs(this.X2 - this.X1) == Math.abs(this.Y2 - this.Y1))){
 
             if ((this.X1 - this.X2 != 1) && (this.Y2 - this.Y1 != 1)) {
@@ -120,6 +124,7 @@ public class Queen extends Piece {
             }
         }
         
+        // Bottom right diagonal movement
         if (this.X1 < this.X2 && this.Y1 < this.Y2 && (Math.abs(this.X2 - this.X1) == Math.abs(this.Y2 - this.Y1))){
 
             if ((this.X1 - this.X2 != 1) && (this.Y2 - this.Y1 != 1)) {
@@ -138,6 +143,7 @@ public class Queen extends Piece {
             }
         }
         
+        // Bottom left diagonal movemen
         if (this.X1 < this.X2 && this.Y1 > this.Y2 && (Math.abs(this.X2 - this.X1) == Math.abs(this.Y2 - this.Y1))){
 
             if ((this.X1 - this.X2 != 1) && (this.Y2 - this.Y1 != 1)) {

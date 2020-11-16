@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Board {
     
-    //DEFINITION OF VARIABLES
     private Scanner keyboard = new Scanner(System.in);
     private String pieceToMove;
     private String movement;
@@ -18,20 +17,16 @@ public class Board {
     };
     
     /**
-     * 
-     * @return
+     * @return board
      */
     public String[][] getBoard() {
         return board;
     }
 
-    /**
-     * METHOD FOR PRINT THE BOARD
-     */
     public void printBoard () {
         
-        System.out.println("   A " + " B " + " C " + " D " + " E " + " F " + " G " + " H ");
-        System.out.println(" -------------------------");
+        System.out.println("  A " + "B " + "C " + "D " + "E " + "F " + "G " + "H ");
+        System.out.println(" -----------------");
         
         for (int r = 0; r < this.board.length; r++) {
 
@@ -52,29 +47,39 @@ public class Board {
     }
     
     /**
-     * 
+     * Ask play every turn
+     * Check if positions of piece to move an destination are valid
+     * If movement is cancelled it gets restarted
      * @param turn
      */
     public void askPlay(String turn) {
 
         String pieceBeingMoved;
+
+        // Patterns to check
         String movementPattern = "^[1-8]{1}[A-H]{1}$";
         String upperCasePattern = "[A-Z]";
         String lowerCasePattern = "[a-z]";
+
         boolean validPiece = false;
         boolean validDestination = false;
         boolean cancel = false;
         boolean validMovement = false;
+
+        // Piece to move position coordinates
         int X1 = 0;
         int Y1 = 0;
+
+        // Destination position coordinates
         int X2 = 0;
         int Y2 = 0;
 
         do {
-            
+
             do {
                 
                 do {
+
                     System.out.println("\n" + "If you want to cancel the movement at any time, just type \"C\"");
                     System.out.println("Which piece would you like to move? Position should be written like: 4B");
                     this.pieceToMove = this.keyboard.next();
@@ -92,10 +97,10 @@ public class Board {
                             validPiece = (this.board[X1][Y1].matches(lowerCasePattern)) ? true : false;
                         }
                     }
-
                 } while (!(this.pieceToMove.matches(movementPattern)) || !validPiece);
                 
                 do {
+
                     System.out.println("Where would you like to move piece " + this.pieceToMove + " ? Position should be written like: 4B");
                     this.movement = this.keyboard.next();
 
@@ -112,7 +117,6 @@ public class Board {
                             validDestination = (this.board[X2][Y2].matches(upperCasePattern) || this.board[X2][Y2].equals("·")) ? true : false;
                         }
                     }
-
                 } while (!(this.movement.matches(movementPattern)) && !cancel || !validDestination && !cancel);
 
             } while (cancel);
@@ -121,6 +125,7 @@ public class Board {
 
             switch (pieceBeingMoved.toUpperCase()) {
 
+                // Pawn movement
                 case "P":
 
                     if (turn.equals("white")) {
@@ -133,6 +138,7 @@ public class Board {
 
                     break;
 
+                // Rook movement
                 case "T":
 
                     if (turn.equals("white")) {
@@ -145,6 +151,7 @@ public class Board {
 
                     break;
 
+                // Knight movement
                 case "C":
 
                     if (turn.equals("white")) {
@@ -157,6 +164,7 @@ public class Board {
 
                     break;
 
+                // Bishop movement
                 case "A":
 
                     if (turn.equals("white")) {
@@ -169,18 +177,20 @@ public class Board {
 
                     break;
 
+                // King movement
                 case "K":
 
-                if (turn.equals("white")) {
-                    King king = new King(X1, Y1, X2, Y2, turn, board, lowerCasePattern);
-                    validMovement = king.isValidMove();
-                } else {
-                    King king = new King(X1, Y1, X2, Y2, turn, board, upperCasePattern);
-                    validMovement = king.isValidMove();
-                }
+                    if (turn.equals("white")) {
+                        King king = new King(X1, Y1, X2, Y2, turn, board, lowerCasePattern);
+                        validMovement = king.isValidMove();
+                    } else {
+                        King king = new King(X1, Y1, X2, Y2, turn, board, upperCasePattern);
+                        validMovement = king.isValidMove();
+                    }
 
                     break;
 
+                // Queen movement
                 case "Q":
 
                     if (turn.equals("white")) {
@@ -196,35 +206,40 @@ public class Board {
                 default:
                     break;
             }
-
         } while (!validMovement);
 
         movePiece(X1, Y1, X2, Y2);
 
     }
 
+    /**
+     * 
+     * @param X1 x coordinate of piece to move
+     * @param Y1 y coordinate of piece to move
+     * @param X2 x coordinate of destination
+     * @param Y2 y coordinate of destination
+     */
     private void movePiece(int X1, int Y1, int X2, int Y2) {
         this.board[X2][Y2] = this.board[X1][Y1];
         this.board[X1][Y1] = "·";
     }
 
     /**
-     * 
+     * Convert char to row number
      * @param number
      * @return
      */
-    public static int getRow(char number) {
+    public int getRow(char number) {
         String fila = Character.toString(number);
-
         return Integer.valueOf(fila);
     }
 
     /**
-     * 
+     * Convert char to column number
      * @param boardCoordinates
      * @return
      */
-    public static int getColumn(String boardCoordinates) {
+    public int getColumn(String boardCoordinates) {
     
         int column = 0;
 

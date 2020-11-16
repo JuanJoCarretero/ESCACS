@@ -8,8 +8,10 @@ public class Pawn extends Piece {
     public boolean isValidMove() {
         boolean valid = false;
 
+        // White pawns movement
         if (this.turn.equals("white")) {
             
+            // Pawn is at start position and it can move 2 positions at once
             if (this.X1 == 6) {
                 
                 if (this.Y1 == this.Y2 && this.board[X2][Y2].equals("·") && ((this.X1 - 1) == X2 || (this.X1 - 2 == this.X2))) {
@@ -42,7 +44,10 @@ public class Pawn extends Piece {
             }
 
         } else {
+
+            // Black pawns movement
             
+            // Pawn is at start position and it can move 2 positions at once
             if (this.X1 == 1) {
                 
                 if (this.Y1 == this.Y2 && this.board[this.X2][this.Y2].equals("·") && ((this.X1 + 1) == this.X2 || (this.X1 + 2 == this.X2))) {

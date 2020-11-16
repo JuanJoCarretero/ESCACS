@@ -8,6 +8,7 @@ public class Rook extends Piece {
     public boolean isValidMove() {
         boolean valid = false;
 
+        // Moves in vertical direction (up or down)
         if (this.Y1 == this.Y2) {
             
             if (this.X1 > this.X2) {
@@ -46,6 +47,7 @@ public class Rook extends Piece {
             }
         }
 
+        // Moves in horizontal direction (left or right)
         if (this.X1 == this.X2) {
             
             if (this.Y1 > this.Y2) {

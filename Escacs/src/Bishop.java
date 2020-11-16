@@ -8,6 +8,7 @@ public class Bishop extends Piece {
     public boolean isValidMove() {
         boolean valid = false;
 
+        // Top left diagonal movement
         if (this.X1 > this.X2 && this.Y1 > this.Y2 && (Math.abs(this.X2 - this.X1) == Math.abs(this.Y2 - this.Y1))) {
 
             if ((this.X1 - this.X2 != 1) && (this.Y1 - this.Y2 != 1)) {
@@ -26,6 +27,7 @@ public class Bishop extends Piece {
             }
         }
         
+        // Top right diagonal movement
         if (this.X1 > this.X2 && this.Y1 < this.Y2 && (Math.abs(this.X2 - this.X1) == Math.abs(this.Y2 - this.Y1))){
 
             if ((this.X1 - this.X2 != 1) && (this.Y2 - this.Y1 != 1)) {
@@ -44,6 +46,7 @@ public class Bishop extends Piece {
             }
         }
         
+        // Bottom right diagonal movement
         if (this.X1 < this.X2 && this.Y1 < this.Y2 && (Math.abs(this.X2 - this.X1) == Math.abs(this.Y2 - this.Y1))){
 
             if ((this.X1 - this.X2 != 1) && (this.Y2 - this.Y1 != 1)) {
@@ -62,6 +65,7 @@ public class Bishop extends Piece {
             }
         }
         
+        // Bottom left diagonal movement
         if (this.X1 < this.X2 && this.Y1 > this.Y2 && (Math.abs(this.X2 - this.X1) == Math.abs(this.Y2 - this.Y1))){
 
             if ((this.X1 - this.X2 != 1) && (this.Y2 - this.Y1 != 1)) {
