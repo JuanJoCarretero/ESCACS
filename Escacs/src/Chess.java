@@ -47,7 +47,7 @@ public class Chess {
         System.out.println();
 
         System.out.println("* * * * * * * * * * * * * * * * * * * * * * * *");
-        System.out.println("\nIs " + this.player1 + "'s turn!\nReminder: you play with Lower Case pieces!");
+        System.out.println("\nIs " + this.player1 + "'s turn!\nReminder: you play with Upper Case pieces!");
         System.out.println("\n* * * * * * * * * * * * * * * * * * * * * * * *");
 
         while (!this.victory) {
@@ -68,7 +68,7 @@ public class Chess {
                 System.out.println();
                 System.out.println();
                 System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * *");
-                System.out.println("\nIs " + this.player1 + "'s turn!\nReminder: you play with Lower Case pieces!");
+                System.out.println("\nIs " + this.player1 + "'s turn!\nReminder: you play with Upper Case pieces!");
                 System.out.println("\n* * * * * * * * * * * * * * * * * * * * * * * *");
                 this.turn = "white";
             }
