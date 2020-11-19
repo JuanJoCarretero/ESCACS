@@ -1,10 +1,5 @@
-import java.util.Scanner;
-
 public class Board {
     
-    private Scanner keyboard = new Scanner(System.in);
-    private String pieceToMove;
-    private String destination;
     private String[][] board = {
         {"t","c","a","q","k","a","c","t"},
         {"p","p","p","p","p","p","p","p"},
@@ -47,110 +42,6 @@ public class Board {
     }
     
     /**
-     * Check if positions of piece to move and destination are valid
-     * If movement is cancelled it gets restarted
-     * @param turn
-     */
-    public void askPlay(String turn) {
-
-        String pieceBeingMoved;
-
-        // Patterns to check
-        String movementPattern = "^[1-8]{1}(?i)[A-H]{1}$";
-        String upperCasePattern = "[A-Z]";
-        String lowerCasePattern = "[a-z]";
-
-        boolean validPiece = false;
-        boolean validDestination = false;
-        boolean cancel = false;
-        boolean validMovement = false;
-
-        // Piece to move position coordinates
-        int X1 = 0;
-        int Y1 = 0;
-
-        // Destination position coordinates
-        int X2 = 0;
-        int Y2 = 0;
-
-        do {
-
-            // Repeat while movement is cancelled
-            do {
-
-                // Ask for piece to move
-                do {
-
-                    System.out.println();
-                    printBoard();
-                    System.out.println();
-
-                    System.out.println("\n" + "If you want to cancel the movement at any time, just type \"C\"");
-                    System.out.println("Which piece would you like to move? Position should be written like: 4B");
-                    this.pieceToMove = this.keyboard.next();
-
-                    cancel = (this.pieceToMove.equals("C")) ? true : false;
-
-                    if (!cancel) {
-
-                        X1 = getRow(this.pieceToMove.charAt(0)) - 1;
-                        Y1 = getColumn(this.pieceToMove);
-
-                        // Checks if each player is selecting their own pieces
-                        if (turn.equals("white")) {
-                            validPiece = (this.board[X1][Y1].matches(upperCasePattern)) ? true : false;
-                        } else {
-                            validPiece = (this.board[X1][Y1].matches(lowerCasePattern)) ? true : false;
-                        }
-                    }
-
-                    if (!(this.pieceToMove.matches(movementPattern)) || !validPiece) {
-                        System.out.println();
-                        System.out.println("Position does not match with any of your pieces. Select carefully!");
-                        System.out.println();
-                    }
-                } while (!(this.pieceToMove.matches(movementPattern)) || !validPiece);
-                
-                // Ask for destination
-                do {
-
-                    System.out.println("Where would you like to move piece " + this.pieceToMove + " ? Position should be written like: 4B");
-                    this.destination = this.keyboard.next();
-
-                    cancel = (this.destination.equals("C")) ? true : false;
-
-                    if (!cancel) {
-
-                        X2 = getRow(this.destination.charAt(0)) - 1;
-                        Y2 = getColumn(this.destination);
-
-                        // Checks if destination does not match with a piece of player's own team
-                        if (turn.equals("white")) {
-                            validDestination = (this.board[X2][Y2].matches(lowerCasePattern) || this.board[X2][Y2].equals("·")) ? true : false;
-                        } else {
-                            validDestination = (this.board[X2][Y2].matches(upperCasePattern) || this.board[X2][Y2].equals("·")) ? true : false;
-                        }
-                    }
-
-                    if (!(this.destination.matches(movementPattern)) || !validDestination) {
-                        System.out.println();
-                        System.out.println("You can not reach this destination. Select carefully!");
-                        System.out.println();
-                    }
-                } while (!(this.destination.matches(movementPattern)) && !cancel || !validDestination && !cancel);
-
-            } while (cancel);
-
-            pieceBeingMoved = this.board[X1][Y1];
-
-            validMovement = checkMovementOfPieceSelected(pieceBeingMoved, turn, X1, Y1, X2, Y2, board, lowerCasePattern, upperCasePattern);
-            
-        } while (!validMovement);
-
-        movePiece(X1, Y1, X2, Y2);
-    }
-
-    /**
      * 
      * @param pieceBeingMoved
      * @param turn
@@ -163,7 +54,7 @@ public class Board {
      * @param upperCasePattern
      * @return
      */
-    private boolean checkMovementOfPieceSelected (String pieceBeingMoved, String turn, int X1, int Y1, int X2, int Y2, String[][] board, String lowerCasePattern, String upperCasePattern) {
+    public boolean checkMovementOfPieceSelected (String pieceBeingMoved, String turn, int X1, int Y1, int X2, int Y2, String[][] board, String lowerCasePattern, String upperCasePattern) {
 
         boolean validMovement = false;
 
@@ -261,7 +152,7 @@ public class Board {
      * @param X2 x coordinate of destination
      * @param Y2 y coordinate of destination
      */
-    private void movePiece(int X1, int Y1, int X2, int Y2) {
+    public void movePiece(int X1, int Y1, int X2, int Y2) {
         this.board[X2][Y2] = this.board[X1][Y1];
         this.board[X1][Y1] = "·";
     }
@@ -271,7 +162,7 @@ public class Board {
      * @param number
      * @return
      */
-    private int getRow(char number) {
+    public int getRow(char number) {
         String fila = Character.toString(number);
         return Integer.valueOf(fila);
     }
@@ -281,7 +172,7 @@ public class Board {
      * @param boardCoordinates
      * @return
      */
-    private int getColumn(String boardCoordinates) {
+    public int getColumn(String boardCoordinates) {
     
         int column = 0;
 
@@ -324,5 +215,34 @@ public class Board {
         }
 
         return column;
+    }
+
+     /**
+      * Looks for both kings in the field
+      * @return whether both kings exist or not
+      */
+    public boolean[] checkVictory() {
+
+        boolean whiteKing = false;
+        boolean blackKing = false;
+        boolean[] kingsStatus = new boolean [2];
+
+        for (int r = 0; r < this.board.length; r++) {
+            for (int c = 0; c < this.board[r].length; c++) {
+
+                if (this.board[r][c].equals("K")) {
+                    whiteKing = true;
+                }
+
+                if (this.board[r][c].equals("k")) {
+                    blackKing = true;
+                }
+            }
+        }
+
+        kingsStatus[0] = whiteKing;
+        kingsStatus[1] = blackKing;
+
+        return kingsStatus;
     }
 }
